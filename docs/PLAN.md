@@ -132,22 +132,22 @@ Each phase lists: goal, concepts to master first, week-by-week tasks, tests, exi
 - [ ] Skim the xv6 book, Ch. 1–2 (OS interfaces, organization)
 
 **Tasks**
-- [ ] Install Homebrew packages: `verilator`, `icarus-verilog`, `qemu`
-- [ ] Install the RISC-V toolchain and Spike from the `riscv-software-src/riscv` Homebrew tap; xPack `riscv-none-elf-gcc` is the fallback if the tap fails on Apple Silicon
-- [ ] Confirm the toolchain builds RV32: `-march=rv32ima_zicsr_zifencei -mabi=ilp32`
-- [ ] Install a waveform viewer (Surfer) and Konata
-- [ ] Create the repo layout from §4.3, `git init`, first commit, push to GitHub
-- [ ] Clone `michaelengel/xv6-rv32`, build it, boot it in `qemu-system-riscv32`, run `ls` and `usertests` in QEMU
+- [x] Install Homebrew packages: `verilator`, `icarus-verilog`, `qemu`
+- [x] Install the RISC-V toolchain and Spike from the `riscv-software-src/riscv` Homebrew tap; xPack `riscv-none-elf-gcc` is the fallback if the tap fails on Apple Silicon
+- [x] Confirm the toolchain builds RV32: `-march=rv32ima_zicsr_zifencei -mabi=ilp32`
+- [ ] Install a waveform viewer (Surfer) and Konata *(Surfer done; Konata deferred to Phase 2)*
+- [x] Create the repo layout from §4.3, `git init`, first commit, push to GitHub
+- [x] Clone `michaelengel/xv6-rv32`, build it, boot it in `qemu-system-riscv32`, run `ls` and `usertests` in QEMU
 - [ ] Write `sw/common/crt0.S` + a linker script for RAM at `0x8000_0000`
 - [ ] Compile a hello-world C program to an ELF, convert it to a hex/bin memory image
 - [ ] Run that program in **Spike** with `--isa=rv32ima` and commit logging on; save the log format sample
 - [ ] Top-level `Makefile` targets: `make sw`, `make sim`, `make test`, `make clean`
-- [ ] Create `docs/BUGLOG.md`, `docs/DESIGN.md`, `docs/RESOURCES.md`
+- [x] Create `docs/BUGLOG.md`, `docs/DESIGN.md`, `docs/RESOURCES.md`
 
 **Exit criteria**
 - [ ] Hello-world compiles to an RV32 image and runs in Spike with a commit log
-- [ ] xv6-rv32 boots to a shell in QEMU and `usertests` passes there
-- [ ] Repo is on GitHub with the full folder structure
+- [x] xv6-rv32 boots to a shell in QEMU and `usertests` passes there
+- [x] Repo is on GitHub with the full folder structure
 
 **Interview questions**
 - What's the difference between an ISA and a microarchitecture?
@@ -524,7 +524,7 @@ Each phase lists: goal, concepts to master first, week-by-week tasks, tests, exi
 
 ## 10. Open Questions
 
-- [ ] Does the Homebrew tap's toolchain support rv32 multilib on Apple Silicon, or do I need xPack?
+- [x] Does the Homebrew tap's toolchain support rv32 multilib on Apple Silicon, or do I need xPack? **Tap works (GCC 16.1.0). Bare-metal rv32ima is fine; newlib has rv32im/ilp32 but no rv32ima multilib, so libc-linked code (CoreMark, FreeRTOS) links against rv32im. No xPack needed.**
 - [ ] Which xv6-rv32 port fits best (michaelengel vs r1809 vs x653 FPGA version)?
 - [ ] How to align Spike and my core on interrupt timing for the diff?
 
@@ -533,3 +533,4 @@ Each phase lists: goal, concepts to master first, week-by-week tasks, tests, exi
 | Date | Phase | What got done | Next |
 |---|---|---|---|
 | | 0 | Plan created | Install toolchain |
+| 2026-10-16 | 0 | Repo layout + docs, pushed to GitHub. Installed Verilator 5.052 (needed Command Line Tools update to clang 21), QEMU 11.1.2, riscv-gnu-toolchain GCC 16.1.0 + Spike (tap), Surfer 0.7.0. RV32 test ran in Spike with commit log. xv6-rv32 booted in QEMU, `usertests` ALL TESTS PASSED after two xv6 patches: PMP setup in `start.c` (new QEMU enforces PMP) and missing `flags` field in 32-bit `struct proghdr` (`elf.h`). Build needs `TOOLPREFIX=riscv64-unknown-elf-`, rv32 `-march/-mabi`, `ld -m elf32lriscv`, and two `-Wno-error` flags for GCC 16. | crt0.S + linker script, hello-world in Spike, top-level Makefile |
