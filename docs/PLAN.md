@@ -138,14 +138,14 @@ Each phase lists: goal, concepts to master first, week-by-week tasks, tests, exi
 - [ ] Install a waveform viewer (Surfer) and Konata *(Surfer done; Konata deferred to Phase 2)*
 - [x] Create the repo layout from §4.3, `git init`, first commit, push to GitHub
 - [x] Clone `michaelengel/xv6-rv32`, build it, boot it in `qemu-system-riscv32`, run `ls` and `usertests` in QEMU
-- [ ] Write `sw/common/crt0.S` + a linker script for RAM at `0x8000_0000`
-- [ ] Compile a hello-world C program to an ELF, convert it to a hex/bin memory image
-- [ ] Run that program in **Spike** with `--isa=rv32ima` and commit logging on; save the log format sample
-- [ ] Top-level `Makefile` targets: `make sw`, `make sim`, `make test`, `make clean`
+- [x] Write `sw/common/crt0.S` + a linker script for RAM at `0x8000_0000`
+- [x] Compile a hello-world C program to an ELF, convert it to a hex/bin memory image
+- [x] Run that program in **Spike** with `--isa=rv32ima` and commit logging on; save the log format sample
+- [x] Top-level `Makefile` targets: `make sw`, `make sim`, `make test`, `make clean`
 - [x] Create `docs/BUGLOG.md`, `docs/DESIGN.md`, `docs/RESOURCES.md`
 
 **Exit criteria**
-- [ ] Hello-world compiles to an RV32 image and runs in Spike with a commit log
+- [x] Hello-world compiles to an RV32 image and runs in Spike with a commit log
 - [x] xv6-rv32 boots to a shell in QEMU and `usertests` passes there
 - [x] Repo is on GitHub with the full folder structure
 
@@ -534,3 +534,4 @@ Each phase lists: goal, concepts to master first, week-by-week tasks, tests, exi
 |---|---|---|---|
 | | 0 | Plan created | Install toolchain |
 | 2026-10-16 | 0 | Repo layout + docs, pushed to GitHub. Installed Verilator 5.052 (needed Command Line Tools update to clang 21), QEMU 11.1.2, riscv-gnu-toolchain GCC 16.1.0 + Spike (tap), Surfer 0.7.0. RV32 test ran in Spike with commit log. xv6-rv32 booted in QEMU, `usertests` ALL TESTS PASSED after two xv6 patches: PMP setup in `start.c` (new QEMU enforces PMP) and missing `flags` field in 32-bit `struct proghdr` (`elf.h`). Build needs `TOOLPREFIX=riscv64-unknown-elf-`, rv32 `-march/-mabi`, `ld -m elf32lriscv`, and two `-Wno-error` flags for GCC 16. | crt0.S + linker script, hello-world in Spike, top-level Makefile |
+| 2026-10-16 | 0 | `crt0.S`, `link.ld` (RAM at 0x8000_0000, tohost section), 16550 UART driver, `hello.c`, `scripts/bin2hex.py`, top-level Makefile (`sw`, `spike`, `sim` stub, `test`, `clean`). Hello prints over UART in Spike; `make test` PASS. Spike's map matches QEMU virt (UART 0x1000_0000, CLINT 0x0200_0000, PLIC 0x0C00_0000). Commit-log sample in `docs/samples/`. | Phase 0 reading (Unpriv Ch. 1–2); Phase 1: `regfile.sv` + its testbench |
