@@ -1,0 +1,3 @@
+# riscv-core
+
+A 5-stage pipelined RV32IMA processor written in SystemVerilog, with M/S/U privilege modes, an Sv32 MMU (split instruction and data TLBs plus a hardware page-table walker) and I/D caches. It sits in a small SoC (boot ROM, RAM, 16550-subset UART, CLINT timer and a minimal PLIC) that follows the QEMU `virt` memory map. The goal is to boot xv6-rv32 to a shell and pass `usertests`, with every instruction checked against the Spike reference simulator and the official RISC-V compliance suites in CI. Every design bug found along the way is logged as data for a study of LLM-based hardware debugging.

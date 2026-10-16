@@ -1,0 +1,32 @@
+# Build outputs
+build/
+out/
+*.o
+*.a
+*.d
+
+# Verilator
+obj_dir/
+
+# Icarus Verilog
+*.vvp
+
+# Waveforms
+*.vcd
+*.fst
+*.fst.hier
+
+# Compiled software
+*.elf
+*.bin
+*.hex
+*.dump
+*.map
+
+# Simulation logs and traces
+*.log
+!docs/**/*.log
+*.kanata
+
+# macOS
+.DS_Store
